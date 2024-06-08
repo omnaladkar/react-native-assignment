@@ -17,7 +17,7 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
-
+import Navigation from "./src/navigation/navigation"
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {addTodoItem, getTodoItems} from './helper';
 
@@ -39,37 +39,7 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>TODO</Text>
-        </View>
-        <View style={styles.sectionContainer}>
-          {todoItems.map((item: any) => (
-            <View key={item.id} style={styles.todoItem}>
-              <Text style={styles.sectionDescription}>{item.title}</Text>
-            </View>
-          ))}
-        </View>
-        <View style={styles.sectionContainer}>
-          <TextInput
-            style={styles.sectionDescription}
-            placeholder="Add your todo item"
-            onChange={e => setNewTodoItem(e.nativeEvent.text)}
-          />
-          <Button
-            title="Add"
-            onPress={() => {
-              addTodoItem(newTodoItem).then(() => {
-                getTodoItems(0, 10).then(items => {
-                  setTodoItems(items);
-                });
-              });
-            }}
-          />
-        </View>
-      </ScrollView>
+ <Navigation/>
     </SafeAreaView>
   );
 }

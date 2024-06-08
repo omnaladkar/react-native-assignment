@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "678699761611",
+    "project_id": "todologin-5fc01",
+    "storage_bucket": "todologin-5fc01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678699761611:android:595e0391a37dc43c3a404e",
+        "android_client_info": {
+          "package_name": "com.awesomeproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc0cwXEktiPW0dFuFU5IlE7UiSHvX-REk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
