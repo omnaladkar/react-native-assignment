@@ -1,73 +1,80 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// import React, { useEffect } from 'react';
+// import SplashScreen from 'react-native-splash-screen';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import LoginScreen from './src/screens/LoginScreen';
+// import TodoScreen from './src/screens/TodoList';
+// import ProfileScreen from './src/screens/ProfileScreen';
+// import auth from '@react-native-firebase/auth';
 
-import React, {useEffect} from 'react';
-import {
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  useColorScheme,
-} from 'react-native';
-import Navigation from "./src/navigation/navigation"
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {addTodoItem, getTodoItems} from './helper';
+// const Tab = createBottomTabNavigator();
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+// const App = () => {
+//   useEffect(() => {
+//     SplashScreen.hide();
+//   }, []);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-  const [todoItems, setTodoItems] = React.useState([]);
-  const [newTodoItem, setNewTodoItem] = React.useState('');
+//   const user = auth().currentUser;
+
+//   return (
+//     <NavigationContainer>
+//       <Tab.Navigator>
+//         {user ? (
+//           <>
+//             <Tab.Screen name="Todo" component={TodoScreen} />
+//             <Tab.Screen name="Profile" component={ProfileScreen} />
+//           </>
+//         ) : (
+//           <Tab.Screen name="Login" component={LoginScreen} />
+//         )}
+//       </Tab.Navigator>
+//     </NavigationContainer>
+//   );
+// };
+
+// export default App;
+import React, { useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import LoginScreen from './src/screens/LoginScreen';
+import TodoScreen from './src/screens/TodoList';
+import ProfileScreen from './src/screens/ProfileScreen';
+import auth from '@react-native-firebase/auth';
+import { ThemeProvider, useTheme } from './src/context/TimeContext';
+
+const Tab = createBottomTabNavigator();
+
+const App = () => {
   useEffect(() => {
-    getTodoItems(0, 10).then(items => setTodoItems(items));
+    SplashScreen.hide();
   }, []);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
- <Navigation/>
-    </SafeAreaView>
+    <ThemeProvider>
+      <MainApp />
+    </ThemeProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  todoItem: {
-    fontSize: 18,
-    fontWeight: '400',
-    borderBottomWidth: 1,
-    padding: 8,
-    borderBottomColor: 'gray',
-  },
-});
+const MainApp = () => {
+  const { theme } = useTheme();
+  const user = auth().currentUser;
+
+  return (
+    <NavigationContainer theme={{ dark: theme === 'dark' }}>
+      <Tab.Navigator>
+        {user ? (
+          <>
+            <Tab.Screen name="Todo" component={TodoScreen} />
+            <Tab.Screen name="Profile" component={ProfileScreen} />
+          </>
+        ) : (
+          <Tab.Screen name="Login" component={LoginScreen} />
+        )}
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;
